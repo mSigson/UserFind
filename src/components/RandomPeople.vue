@@ -4,7 +4,7 @@ import Vue from 'vue'
   <section class="randomPeople">
     <div class="wrapper">
       <ul class="users">
-        <li v-for="user in sortedUsers" name="user" class="notSelected" v-on:click="select">
+        <li v-for="user in sortedUsers" :key="user.id.value" name="user" class="notSelected" v-on:click="select(user)">
           {{ user.name.first}} {{ user.name.last}}
           {{ user.dob }}
           {{ user.email }}
@@ -46,27 +46,31 @@ export default {
         this.sortedUsers = this.users
       })
     },
-    select: function (event) {
+    select: function (user) {
       if (event.target.className === 'notSelected') {
         event.target.className = 'selected'
+        if (!this.selectedUsers.includes(user)) {
+          this.selectedUsers.push(user)
+        }
+        console.log(this.selectedUsers)
       } else {
         event.target.className = 'notSelected'
+        let i = this.selectedUsers.indexOf(user)
+        if (i !== -1) {
+          this.selectedUsers.splice(i, 1)
+        }
+        console.log(this.selectedUsers)
       }
     },
     confirmUsers: function (event) {
       alert('added user')
-      // const user = document.getElementByTagName('li')
-      // if (user.className === 'selected') {
-      //   this.selectedUsers.push(user)
-      // }
-
-      // console.log(this.selectedUsers)
     }
   },
   mounted: function () {
     this.$http.get('https://randomuser.me/api/?results=5')
     .then(function (data) {
       this.users = data.body.results
+      console.log(this.users)
     })
     .then(function () {
       this.users.sort((a, b) => {
