@@ -4,7 +4,10 @@ import Vue from 'vue'
   <div id="app">
     <Head></Head>
     <main class="mainContainer clearfix">
-      <RandomPeople></RandomPeople>
+      <div class="wrapper">
+        <RandomPeople :getSelectedUsers="getSelectedUsers" ></RandomPeople>
+        <SelectedUsers v-if="showSelectedUsers === true" :selectedUsers="selectedUsers" :submitUsers="submitUsers"></SelectedUsers>
+      </div>
     </main>
     <Foot></Foot>
   </div>
@@ -14,6 +17,7 @@ import Vue from 'vue'
 
 import Head from './components/Head'
 import RandomPeople from './components/RandomPeople'
+import SelectedUsers from './components/SelectedUsers'
 import Foot from './components/Foot'
 
 export default {
@@ -21,7 +25,28 @@ export default {
   components: {
     Head,
     RandomPeople,
+    SelectedUsers,
     Foot
+  },
+  data: function () {
+    return {
+      selectedUsers: [],
+      showSelectedUsers: false
+    }
+  },
+  methods: {
+    getSelectedUsers: function (selectedUsers) {
+      this.selectedUsers = selectedUsers
+
+      if (this.selectedUsers.length > 0) {
+        this.showSelectedUsers = true
+      }
+    },
+    submitUsers: function () {
+      this.selectedUsers.length = 0
+      this.showSelectedUsers = false
+      console.log(this.selectedUsers)
+    }
   }
 }
 </script>
