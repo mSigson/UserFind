@@ -2,11 +2,10 @@ import Vue from 'vue'
 
 <template>
   <section class="randomPeople">
-    <ul class="users">
-      <li v-for="user in sortedUsers" :key="user.id.value" name="user" class="notSelected" v-on:click="select(user)">
-        {{ user.name.first}} {{ user.name.last}}
+    <ul class="randomUsers">
+      <li v-for="user in sortedUsers" :key="user.id.value" class="notSelected" v-on:click="select(user)">
+        {{ user.name.first}} {{ user.name.last}} {{ user.email }}
         {{ user.dob }}
-        {{ user.email }}
       </li>
     </ul>
     <div class="buttonContainer">
@@ -63,7 +62,7 @@ export default {
       this.$parent.getSelectedUsers(this.selectedUsers)
     }
   },
-  mounted: function () {
+  created: function () {
     this.$http.get('https://randomuser.me/api/?results=5')
     .then(function (data) {
       this.users = data.body.results
@@ -74,15 +73,19 @@ export default {
       })
     })
     .then(function () {
-      this.users[0].className = 'selected'
+      // this.selectedUsers.push(this.users[0])
       this.sortedUsers = this.users
     })
+  },
+  mounted: function () {
+    this.sortedUsers[0].hasClass('selected')
   }
 }
 </script>
 
 <style>
   .selected {
-    border: 2px solid pink;
+    background: #E5A3AD;
+    color: white;
   }
 </style>

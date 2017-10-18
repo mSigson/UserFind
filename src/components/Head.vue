@@ -2,7 +2,9 @@ import Vue from 'vue'
 
 <template>
   <header>
-    <h1>{{ msg }}</h1>
+    <div class="wrapper">
+      <h1>{{ msg }}</h1>
+    </div>
   </header>
 </template>
 

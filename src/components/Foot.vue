@@ -2,7 +2,9 @@ import Vue from 'vue'
 
 <template>
   <footer>
-    <p>{{ msg }}</p>
+    <div class="wrapper">
+      <p>{{ msg }}</p>
+    </div>
   </footer>
 </template>
 
@@ -11,7 +13,7 @@ export default {
   name: 'Foot',
   data () {
     return {
-      msg: 'Ⓒ Maren Sigson'
+      msg: 'Developed by Maren Sigson'
     }
   }
 }

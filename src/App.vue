@@ -4,9 +4,12 @@ import Vue from 'vue'
   <div id="app">
     <Head></Head>
     <main class="mainContainer clearfix">
-      <div class="wrapper">
+      <div class="wrapper clearfix">
         <RandomPeople :getSelectedUsers="getSelectedUsers" ></RandomPeople>
-        <SelectedUsers v-if="showSelectedUsers === true" :selectedUsers="selectedUsers" :submitUsers="submitUsers"></SelectedUsers>
+        <section class="selectedUsersContainer">
+          <SelectedUsers v-if="showSelectedUsers === true" :selectedUsers="selectedUsers" :submitUsers="submitUsers"></SelectedUsers>
+          <button v-on:click="submitUsers">Submit Users</button>
+        </section>
       </div>
     </main>
     <Foot></Foot>
@@ -45,19 +48,84 @@ export default {
     submitUsers: function () {
       this.selectedUsers.length = 0
       this.showSelectedUsers = false
-      console.log(this.selectedUsers)
     }
   }
 }
 </script>
 
 <style>
+
+{/* global */}
+
+ul {
+  list-style: none;
+  padding: 20px 10px;
+  border: 2px solid #E5A3AD;
+}
+
+ul li {
+  padding: 5px 0;
+}
+
+button {
+  background: #E5A3AD;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border: 2px solid #E5A3AD;  
+  &:hover {
+    background: white;
+    color: #E5A3AD;
+  }
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  word-wrap: break-word;  
 }
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+header, footer {
+  background: #E5A3AD;
+  padding: 5px;
+  color: white;
+}
+
+main {
+  padding: 20px;
+}
+
+main .wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.randomPeople, .selectedUsersContainer {
+  padding: 2px 30px;
+  border: 2px solid #E5A3AD;
+  box-shadow: 2px 2px 5px #888888;  
+}
+
+.randomPeople {
+  width: 65%;
+}
+
+.selectedUsersContainer {
+  width: 25%;
+  position: relative;
+}
+
+.selectedUsersContainer button {
+  position: absolute;
+  bottom: 0;
+}
+
 </style>
