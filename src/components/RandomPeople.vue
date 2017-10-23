@@ -10,7 +10,7 @@ import Vue from 'vue'
     </ul>
     <div class="buttonContainer">
       <button v-on:click="getMoreUsers">Roll</button>
-      <button v-on:click="confirmUsers">Add Users</button>
+      <button v-on:click="confirmUsers" >Add Users</button>
     </div>
   </section>
 </template>
@@ -24,7 +24,8 @@ export default {
       users: [],
       sortedUsers: [],
       selectedUsers: [],
-      isActive: false
+      isActive: false,
+      submitBtnDisabled: true
     }
   },
   methods: {

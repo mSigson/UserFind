@@ -8,7 +8,7 @@ import Vue from 'vue'
         <RandomPeople :getSelectedUsers="getSelectedUsers" ></RandomPeople>
         <section class="selectedUsersContainer">
           <SelectedUsers v-if="showSelectedUsers === true" :selectedUsers="selectedUsers" :submitUsers="submitUsers"></SelectedUsers>
-          <button v-on:click="submitUsers">Submit Users</button>
+          <button v-on:click="submitUsers" :disabled="submitBtnDisabled === true">Submit Users</button>
         </section>
       </div>
     </main>
@@ -34,7 +34,8 @@ export default {
   data: function () {
     return {
       selectedUsers: [],
-      showSelectedUsers: false
+      showSelectedUsers: false,
+      submitBtnDisabled: true
     }
   },
   methods: {
@@ -43,11 +44,13 @@ export default {
 
       if (this.selectedUsers.length > 0) {
         this.showSelectedUsers = true
+        this.submitBtnDisabled = false
       }
     },
     submitUsers: function () {
       this.selectedUsers.length = 0
       this.showSelectedUsers = false
+      this.submitBtnDisabled = true
     }
   }
 }
@@ -107,6 +110,11 @@ main .wrapper {
   display: flex;
   justify-content: space-between;
 }
+@media (max-width: 740px) {
+  main .wrapper{
+    flex-direction: column;
+  }
+}
 
 .randomPeople, .selectedUsersContainer {
   padding: 2px 30px;
@@ -118,9 +126,25 @@ main .wrapper {
   width: 65%;
 }
 
+@media (max-width: 740px) {
+ .randomPeople {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
 .selectedUsersContainer {
   width: 25%;
   position: relative;
+  min-height: 300px;
+}
+
+@media (max-width: 740px) {
+  .selectedUsersContainer {
+    margin: 0 auto;
+    margin-top: 5%;
+    width: 90%;
+  }
 }
 
 .selectedUsersContainer button {
